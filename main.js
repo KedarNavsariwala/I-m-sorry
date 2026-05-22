@@ -43,10 +43,26 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 if (duduGif) {
-  duduGif.addEventListener("click", () => {
+  duduGif.addEventListener("click", (e) => {
     const next = duduGif.dataset.next;
     if (next) {
-      window.location.assign(next);
+      const wipe = document.createElement("div");
+      wipe.className = "heart-wipe";
+      // Position at the mouse click coordinates
+      wipe.style.left = `${e.clientX}px`;
+      wipe.style.top = `${e.clientY}px`;
+      document.body.appendChild(wipe);
+
+      // Ensures it remains centered correctly while scaling
+      gsap.set(wipe, { xPercent: -50, yPercent: -50, scale: 0 });
+      gsap.to(wipe, {
+        scale: 50, // Scale enough to overfill the view
+        duration: 1.2,
+        ease: "power2.in",
+        onComplete: () => {
+          window.location.assign(next);
+        }
+      });
     }
   });
 }
