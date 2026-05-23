@@ -3,24 +3,60 @@
 :root {
   --ink: #2b2b2b;
   --env-back: #e8dbcc;
-  --env-front: #e0d0c1;
+  --env-front: #d4c6b8;
   --env-bottom: #dbccbb;
   --env-flap: #e8dbcc;
-  --heart: #c86be4; /* pastel purple */
+  --heart: #bc42d2;
 }
 
 * {
   box-sizing: border-box;
   cursor: url('Assets/open paw.png'), auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
 
-:is(button, a, [role="button"], .heart-seal, .dudu-gif, .scene2-dudu-gif):hover {
+:is(button, a, [role="button"], .heart-seal, .dudu-gif, .scene2-dudu-gif, .nav-arrow, #page-1:not(.flipped), .lamp-click-zone):hover {
   cursor: url('Assets/pointing paw.png'), pointer;
 }
 
-:is(body, #app, .stage, .envelope-wrapper, button, a, [role="button"], .heart-seal, .dudu-gif, .scene2-dudu-gif):active {
-  cursor: url('Assets/closed paw.png'), auto;
+:is(body, #app, .stage, .envelope-wrapper, button, a, [role="button"], .heart-seal, .dudu-gif, .scene2-dudu-gif, .nav-arrow, #page-1:not(.flipped), .lamp-click-zone):active,
+body.light-on.dragging, body.light-on.dragging * {
+  cursor: url('Assets/closed paw.png'), auto !important;
 }
+
+.page-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  pointer-events: none; /* Allows click through the container */
+}
+
+.page-content[style*="background-color: #d4bce8"] .page-nav {
+   padding: 0 20px;
+}
+
+.nav-arrow {
+  width: 40px;
+  height: 40px;
+  color: var(--ink);
+  pointer-events: auto; /* Re-enable pointer events for SVG */
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0.8;
+}
+
+.nav-arrow:hover {
+  transform: scale(1.15) rotate(-2deg);
+  opacity: 1;
+}
+
+.nav-left { margin-right: auto; }
+.nav-right { margin-left: auto; }
 
 body {
   margin: 0;
@@ -36,6 +72,173 @@ body {
 
 body.scene-2 {
   background-image: none;
+}
+
+body.scene-3 {
+  background-image: none;
+  background-color: #fdfbf7;
+}
+
+body.scene-3::before {
+  content: "";
+  position: fixed;
+  inset: 18px;
+  border-radius: 18px;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='2' y='2' width='calc(100%25 - 4px)' height='calc(100%25 - 4px)' fill='none' rx='16' ry='16' stroke='%23b089c9' stroke-width='4' stroke-dasharray='12%2c 16' stroke-linecap='round'/%3e%3c/svg%3e");
+  pointer-events: none;
+  z-index: 1; /* Dotted frame should be below all the desktop simulation elements */
+}
+
+/* Scene 3 Layout */
+.scene3-layout {
+  display: flex !important;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  gap: 15vw;
+}
+
+.gif-section {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.gif-section.visible {
+  opacity: 1;
+}
+
+.gif-section img {
+  height: 30vh;
+  width: auto;
+  object-fit: contain;
+}
+
+.table-top-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.lamp-click-zone {
+  position: fixed;
+  top: 4vh;
+  left: 4vw;
+  width: 9vw;
+  height: 12vh;
+  z-index: 120;
+  cursor: url('Assets/pointing paw.png'), pointer;
+}
+
+.lamp-click-zone:hover {
+  opacity: 0.9;
+}
+
+/* Atmospheric Lighting Override Overlay */
+.lighting-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 15, 0.95); /* Extremely dark starting room */
+  pointer-events: none;
+  z-index: 100; /* Over everything except the lamp button */
+  transition: background 1.5s ease-in-out;
+}
+
+body.light-on .lighting-overlay {
+  /* Directional spotlight simulating desk lamp spreading onto the notepad/gif */
+  background: radial-gradient(circle at 15vw 25vh, transparent 0%, rgba(20, 15, 25, 0.4) 60%, rgba(10, 8, 15, 0.8) 100%);
+}
+
+#app.scene3-layout {
+  z-index: 50; /* Bring layout above the dotted frame but under darkness initially */
+  position: relative;
+}
+
+/* Notebook styling */
+.notebook {
+  position: relative;
+  width: min(35vw, 400px);
+  height: min(60vh, 500px);
+  perspective: 1500px;
+}
+
+/* Spiral Binding */
+.notebook::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 5%;
+  width: 90%;
+  height: 24px;
+  background: repeating-linear-gradient(to right, #777 0, #777 6px, transparent 6px, transparent 24px);
+  z-index: 100;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px 5px 15px 15px;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.1), inset 0 0 20px rgba(0,0,0,0.02);
+  border: 1px solid #eee;
+  border-top: 2px solid #ccc;
+}
+
+.page-content {
+  background-color: #fdfafc;
+  background-image: 
+    linear-gradient(transparent 95%, #d4bce8 100%),
+    linear-gradient(to right, transparent 58px, #ffb6c1 58px, #ffb6c1 60px, transparent 60px);
+  background-size: 100% 40px, 100% 100%;
+  height: 100%;
+  padding: 40px 30px 20px 75px; /* left padding avoids the pink margin */
+  line-height: 40px; /* exactly matches the line background size */
+  font-family: inherit;
+  font-size: 1.6rem;
+  color: var(--ink);
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px 5px 15px 15px;
+}
+
+.page-back {
+  background-color: #f4f4f4;
+  transform: rotateX(180deg);
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 15px 5px 5px;
+  box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.page.flipped {
+  transform: rotateX(180deg);
 }
 
 #app {
@@ -238,7 +441,7 @@ body.scene-2 {
   top: 0;
   width: 50%;
   height: 80%;
-  background-color: #ffffff;
+  background-color: var(--heart);
   border-radius: 75px 75px 0 0;
 }
 

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scene 3</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="scene-3">
+    <!-- Dark overlay & directional lighting -->
+    <div class="lighting-overlay" id="lightingOverlay"></div>
+
+    <!-- Table top Image Overlay -->
+    <img src="Assets/table top.png" class="table-top-img" alt="Table Top" draggable="false" />
+
+    <!-- Clickable Zone over the PNG lamp -->
+    <div class="lamp-click-zone" id="lampClickZone" role="button" aria-label="Toggle Light"></div>
+
+    <!-- Main Content -->
+    <main id="app" class="scene3-layout">
+      <!-- Notepad Section -->
+      <div class="notepad-section">
+        <div class="notebook" id="notebook">
+          
+          <!-- Page 1 (Cover) -->
+          <div class="page" id="page-1" style="z-index: 3;">
+            <div class="page-content" style="background-image: none; background-color: #d4bce8; justify-content: center; align-items: center; display: flex; flex-direction: column; text-align: center; border-radius: 5px 5px 15px 15px; padding: 20px;">
+              <h2 style="margin: 0; font-size: 2.5rem; color: #fff;">My Notes</h2>
+              <p style="font-size: 1.2rem; margin-top: 10px; color: #fdfafc;">(Click to flip)</p>
+            </div>
+            <div class="page-back"></div>
+          </div>
+          
+          <!-- Page 2 -->
+          <div class="page" id="page-2" style="z-index: 2;">
+            <div class="page-content">
+              I'm really trying to make things right.
+              <div class="page-nav">
+                <svg class="nav-arrow nav-left" viewBox="0 0 40 40"><path d="M25 10 Q14 20 15 20 Q14 20 25 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 20 Q25 19 35 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="nav-arrow nav-right" viewBox="0 0 40 40"><path d="M15 10 Q26 20 25 20 Q26 20 15 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 20 Q15 19 5 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="page-back"></div>
+          </div>
+
+          <!-- Page 3 -->
+          <div class="page" id="page-3" style="z-index: 1;">
+            <div class="page-content">
+              I hope you can find it in your heart to forgive me.
+              <div class="page-nav">
+                <svg class="nav-arrow nav-left" viewBox="0 0 40 40"><path d="M25 10 Q14 20 15 20 Q14 20 25 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 20 Q25 19 35 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="page-back"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GIF Section -->
+      <div class="gif-section">
+        <img src="Assets/sorrycrying.gif" alt="Sorry Crying" />
+      </div>
+    </main>
+
+    <script>
+      const notebook = document.getElementById('notebook');
+      const pages = document.querySelectorAll('.page');
+      
+      let isDragging = false;
+      let isClick = true;
+      let totalMoved = 0;
+
+      // Physics variables for tabletop slide
+      let posX = 0, posY = 0;
+      let velX = 0, velY = 0;
+      let mouseX = 0, mouseY = 0;
+      let lastMouseX = 0, lastMouseY = 0;
+
+      // Lamp functionality
+      const lampClickZone = document.getElementById('lampClickZone');
+      const gifSection = document.querySelector('.gif-section');
+      const gifImage = gifSection.querySelector('img');
+      const gifSources = {
+        2: 'Assets/sorrycrying.gif',
+        3: 'Assets/sorry.gif'
+      };
+
+      function showGif(pageNumber) {
+        const source = gifSources[pageNumber];
+        if (!source) {
+          gifSection.classList.remove('visible');
+          return;
+        }
+        gifImage.src = source;
+        gifSection.classList.add('visible');
+      }
+
+      function hideGif() {
+        gifSection.classList.remove('visible');
+      }
+
+      lampClickZone.addEventListener('click', () => {
+        document.body.classList.toggle('light-on');
+      });
+
+      let baseRect = notebook.getBoundingClientRect();
+      window.addEventListener('resize', () => {
+        const oldTransform = notebook.style.transform;
+        notebook.style.transform = 'none';
+        baseRect = notebook.getBoundingClientRect();
+        notebook.style.transform = oldTransform;
+      });
+
+      // Start drag
+      notebook.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        isClick = true;
+        totalMoved = 0;
+        
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+        
+        document.body.classList.add('dragging');
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        const dx = mouseX - lastMouseX;
+        const dy = mouseY - lastMouseY;
+        totalMoved += Math.abs(dx) + Math.abs(dy);
+        
+        // If moved beyond a small threshold, it's a drag, not a click
+        if (totalMoved > 10) {
+          isClick = false;
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          document.body.classList.remove('dragging');
+        }
+      });
+
+      // Animation Loop for Tabletop Physics
+      function updatePhysics() {
+        if (isDragging) {
+          // Calculate velocity based on user drag
+          velX = mouseX - lastMouseX;
+          velY = mouseY - lastMouseY;
+          
+          posX += velX;
+          posY += velY;
+          
+          lastMouseX = mouseX;
+          lastMouseY = mouseY;
+        } else {
+          // Apply friction so it slides slightly before stopping
+          velX *= 0.90; 
+          velY *= 0.90;
+          
+          posX += velX;
+          posY += velY;
+        }
+
+        // Boundary collision constraint
+        const minX = -baseRect.left;
+        const maxX = window.innerWidth - baseRect.right;
+        const minY = -baseRect.top;
+        const maxY = window.innerHeight - baseRect.bottom;
+
+        if (posX < minX) { posX = minX; velX *= -0.5; }
+        else if (posX > maxX) { posX = maxX; velX *= -0.5; }
+
+        if (posY < minY) { posY = minY; velY *= -0.5; }
+        else if (posY > maxY) { posY = maxY; velY *= -0.5; }
+        
+        // Slight rotation based on velocity gives it 'weight'
+        let rot = velX * 0.15;
+        
+        // Apply position and rotation
+        notebook.style.transform = `translate(${posX}px, ${posY}px) rotate(${rot}deg)`;
+        
+        requestAnimationFrame(updatePhysics);
+      }
+      
+      // Start loop
+      updatePhysics();
+
+      pages.forEach((page, index) => {
+        page.addEventListener('click', (e) => {
+          if (!isClick) return; // Ignore if user was dragging
+          
+          const isLeft = e.target.closest('.nav-left');
+          const isRight = e.target.closest('.nav-right');
+
+          // If clicking the cover directly, treat it as flipping open
+          if (index === 0 && !page.classList.contains('flipped')) {
+            page.classList.add('flipped');
+            setTimeout(() => {
+              page.style.zIndex = index + 1;
+            }, 400);
+            showGif(2);
+            return;
+          }
+
+          if (isLeft) {
+            // Unflip the PREVIOUS page
+            if (index > 0) {
+              const prevPage = pages[index - 1];
+              prevPage.classList.remove('flipped');
+              prevPage.style.zIndex = pages.length - (index - 1);
+              if (index === 1) {
+                // Went back from page 2 to cover
+                hideGif();
+              } else if (index === 2) {
+                // Went back from page 3 to page 2
+                showGif(2);
+              }
+            }
+          } else if (isRight) {
+            // Flip THIS page
+            page.classList.add('flipped');
+            setTimeout(() => {
+              page.style.zIndex = index + 1;
+            }, 400);
+            if (index === 1) {
+              showGif(3);
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
