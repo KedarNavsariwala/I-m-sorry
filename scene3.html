@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="scene-3">
+    <!-- Hint Text -->
+    <div id="hintText" class="hint-text">Click Here bubu</div>
+
     <!-- Dark overlay & directional lighting -->
     <div class="lighting-overlay" id="lightingOverlay"></div>
 
@@ -18,6 +21,9 @@
 
     <!-- Main Content -->
     <main id="app" class="scene3-layout">
+      <!-- Hint Text -->
+      <div id="hintText" class="hint-text">Click Here bubu</div>
+
       <!-- Notepad Section -->
       <div class="notepad-section">
         <div class="notebook" id="notebook">
@@ -25,16 +31,15 @@
           <!-- Page 1 (Cover) -->
           <div class="page" id="page-1" style="z-index: 3;">
             <div class="page-content" style="background-image: none; background-color: #d4bce8; justify-content: center; align-items: center; display: flex; flex-direction: column; text-align: center; border-radius: 5px 5px 15px 15px; padding: 20px;">
-              <h2 style="margin: 0; font-size: 2.5rem; color: #fff;">My Notes</h2>
-              <p style="font-size: 1.2rem; margin-top: 10px; color: #fdfafc;">(Click to flip)</p>
+              <img src="Assets/cat icon.png" alt="Cat Icon" style="width: 100px; height: auto;" />
             </div>
             <div class="page-back"></div>
           </div>
           
           <!-- Page 2 -->
           <div class="page" id="page-2" style="z-index: 2;">
-            <div class="page-content">
-              I'm really trying to make things right.
+            <div class="page-content animate-paragraphs">
+              <p>I'm scared of losing you, I do things thinking I'm avoiding that but it just pushes you away instead.</p><p> I know it's not justifiable, but I want you to know that you mean everything to me.</p>
               <div class="page-nav">
                 <svg class="nav-arrow nav-left" viewBox="0 0 40 40"><path d="M25 10 Q14 20 15 20 Q14 20 25 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 20 Q25 19 35 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <svg class="nav-arrow nav-right" viewBox="0 0 40 40"><path d="M15 10 Q26 20 25 20 Q26 20 15 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 20 Q15 19 5 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -45,8 +50,35 @@
 
           <!-- Page 3 -->
           <div class="page" id="page-3" style="z-index: 1;">
-            <div class="page-content">
-              I hope you can find it in your heart to forgive me.
+            <div class="page-content animate-paragraphs">
+              <p>I'm sorry for lying to you. I'm sorry for breaking your trust....</p><p>I don't deserve any more chances, you might even be better off without me.</p><p>But...</p>
+              <div class="page-nav">
+                <svg class="nav-arrow nav-left" viewBox="0 0 40 40"><path d="M25 10 Q14 20 15 20 Q14 20 25 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 20 Q25 19 35 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="nav-arrow nav-right" viewBox="0 0 40 40"><path d="M15 10 Q26 20 25 20 Q26 20 15 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 20 Q15 19 5 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="page-back"></div>
+          </div>
+
+          <!-- Page 4 -->
+          <div class="page" id="page-4" style="z-index: 0;">
+            <div class="page-content animate-paragraphs">
+              <p>The way your notification makes me smile, how my mood brightens after hearing your voice, how you push me to do things and challenge my limits.</p><p>All of it makes me wanna change and become a better person for you.</p>
+              <div class="page-nav">
+                <svg class="nav-arrow nav-left" viewBox="0 0 40 40"><path d="M25 10 Q14 20 15 20 Q14 20 25 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 20 Q25 19 35 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="nav-arrow nav-right" viewBox="0 0 40 40"><path d="M15 10 Q26 20 25 20 Q26 20 15 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 20 Q15 19 5 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="page-back"></div>
+          </div>
+
+          <!-- Page 5 -->
+          <div class="page" id="page-5" style="z-index: -1;">
+            <div class="page-content animate-paragraphs">
+              <p>Someone whom you can trust completely and depend on. Someone worthy of sharing your life with.</p><p>I promise to be that person for you. So I selfishly ask you for one thing...</p>
+              <a class="final-cta" href="scene4.html" aria-label="Go to final scene">
+                <img src="Assets/dudu-waving-new-bubu-dudu-ezgif.com-crop.gif" alt="Dudu waving" />
+              </a>
               <div class="page-nav">
                 <svg class="nav-arrow nav-left" viewBox="0 0 40 40"><path d="M25 10 Q14 20 15 20 Q14 20 25 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 20 Q25 19 35 21" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
@@ -63,6 +95,7 @@
       </div>
     </main>
 
+    <script src="node_modules/gsap/dist/gsap.min.js"></script>
     <script>
       const notebook = document.getElementById('notebook');
       const pages = document.querySelectorAll('.page');
@@ -83,7 +116,9 @@
       const gifImage = gifSection.querySelector('img');
       const gifSources = {
         2: 'Assets/sorrycrying.gif',
-        3: 'Assets/sorry.gif'
+        3: 'Assets/sorry.gif',
+        4: 'Assets/phonecrying.gif',
+        5: 'Assets/dudu-muscle-buffed-dudu.gif'
       };
 
       function showGif(pageNumber) {
@@ -100,11 +135,54 @@
         gifSection.classList.remove('visible');
       }
 
+      function resetParagraphs(page) {
+        const paragraphs = page.querySelectorAll('.animate-paragraphs p');
+        paragraphs.forEach((paragraph) => paragraph.classList.remove('is-visible'));
+      }
+
+      function animateParagraphs(page) {
+        const paragraphs = page.querySelectorAll('.animate-paragraphs p');
+        if (!paragraphs.length) return;
+        resetParagraphs(page);
+        const finalCta = page.querySelector('.final-cta');
+        if (finalCta) {
+          finalCta.classList.remove('is-visible');
+        }
+        paragraphs.forEach((paragraph, index) => {
+          setTimeout(() => {
+            paragraph.classList.add('is-visible');
+          }, index * 3000);
+        });
+        if (finalCta) {
+          const revealDelay = (paragraphs.length - 1) * 3000 + 800;
+          setTimeout(() => {
+            finalCta.classList.add('is-visible');
+          }, Math.max(revealDelay, 0));
+        }
+      }
+
       lampClickZone.addEventListener('click', () => {
+        const turnedOn = !document.body.classList.contains('light-on');
         document.body.classList.toggle('light-on');
+        if (turnedOn) {
+          if (!document.body.classList.contains('notepad-visible')) {
+            document.body.classList.add('notepad-visible');
+            boundariesEnabled = false;
+            setTimeout(() => {
+              enableBoundaries();
+            }, 900);
+          }
+          // Fade out hint text when light is turned on
+          const hint = document.getElementById('hintText');
+          if (hint) {
+            gsap.to(hint, { opacity: 0, duration: 1 });
+          }
+        }
       });
 
       let baseRect = notebook.getBoundingClientRect();
+      let boundariesEnabled = false;
+
       window.addEventListener('resize', () => {
         const oldTransform = notebook.style.transform;
         notebook.style.transform = 'none';
@@ -112,8 +190,19 @@
         notebook.style.transform = oldTransform;
       });
 
+      function enableBoundaries() {
+        boundariesEnabled = true;
+        notebook.style.transform = 'translate(0px, 0px)';
+        posX = 0;
+        posY = 0;
+        velX = 0;
+        velY = 0;
+        baseRect = notebook.getBoundingClientRect();
+      }
+
       // Start drag
       notebook.addEventListener('mousedown', (e) => {
+        if (!document.body.classList.contains('notepad-visible')) return;
         isDragging = true;
         isClick = true;
         totalMoved = 0;
@@ -176,11 +265,13 @@
         const minY = -baseRect.top;
         const maxY = window.innerHeight - baseRect.bottom;
 
-        if (posX < minX) { posX = minX; velX *= -0.5; }
-        else if (posX > maxX) { posX = maxX; velX *= -0.5; }
+        if (boundariesEnabled) {
+          if (posX < minX) { posX = minX; velX *= -0.5; }
+          else if (posX > maxX) { posX = maxX; velX *= -0.5; }
 
-        if (posY < minY) { posY = minY; velY *= -0.5; }
-        else if (posY > maxY) { posY = maxY; velY *= -0.5; }
+          if (posY < minY) { posY = minY; velY *= -0.5; }
+          else if (posY > maxY) { posY = maxY; velY *= -0.5; }
+        }
         
         // Slight rotation based on velocity gives it 'weight'
         let rot = velX * 0.15;
@@ -194,6 +285,8 @@
       // Start loop
       updatePhysics();
 
+      pages.forEach((page) => resetParagraphs(page));
+
       pages.forEach((page, index) => {
         page.addEventListener('click', (e) => {
           if (!isClick) return; // Ignore if user was dragging
@@ -206,6 +299,7 @@
             page.classList.add('flipped');
             setTimeout(() => {
               page.style.zIndex = index + 1;
+              animateParagraphs(pages[1]);
             }, 400);
             showGif(2);
             return;
@@ -217,12 +311,21 @@
               const prevPage = pages[index - 1];
               prevPage.classList.remove('flipped');
               prevPage.style.zIndex = pages.length - (index - 1);
+              setTimeout(() => {
+                animateParagraphs(prevPage);
+              }, 350);
               if (index === 1) {
                 // Went back from page 2 to cover
                 hideGif();
               } else if (index === 2) {
                 // Went back from page 3 to page 2
                 showGif(2);
+              } else if (index === 3) {
+                // Went back from page 4 to page 3
+                showGif(3);
+              } else if (index === 4) {
+                // Went back from page 5 to page 4
+                showGif(4);
               }
             }
           } else if (isRight) {
@@ -231,12 +334,55 @@
             setTimeout(() => {
               page.style.zIndex = index + 1;
             }, 400);
+            const nextPage = pages[index + 1];
+            if (nextPage) {
+              setTimeout(() => {
+                animateParagraphs(nextPage);
+              }, 450);
+            }
             if (index === 1) {
               showGif(3);
+            } else if (index === 2) {
+              showGif(4);
+            } else if (index === 3) {
+              showGif(5);
             }
           }
         });
       });
+
+      // Handle the transition to scene 4
+      const finalCta = document.querySelector('.final-cta');
+      if (finalCta) {
+        finalCta.addEventListener('click', (e) => {
+          e.preventDefault();
+          const next = finalCta.getAttribute('href') || 'scene4.html';
+          const wipe = document.createElement("div");
+          wipe.className = "heart-wipe";
+          wipe.style.left = `${e.clientX}px`;
+          wipe.style.top = `${e.clientY}px`;
+          document.body.appendChild(wipe);
+
+          gsap.set(wipe, { xPercent: -50, yPercent: -50, scale: 0 });
+          gsap.to(wipe, {
+            scale: 50,
+            duration: 1.2,
+            ease: "power2.in",
+            onComplete: () => {
+              window.location.assign(next);
+            }
+          });
+        });
+      }
+
+      // Hint text logic
+      setTimeout(() => {
+        const hint = document.getElementById('hintText');
+        const isLightOn = document.body.classList.contains('light-on');
+        if (!isLightOn && hint) {
+          gsap.to(hint, { opacity: 1, duration: 1 });
+        }
+      }, 10000);
     </script>
   </body>
 </html>

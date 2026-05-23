@@ -9,6 +9,7 @@ A small, static web project that presents an interactive "I'm sorry" envelope sc
 - index.html: Scene 1 with the envelope interaction and Dudu waving gif button.
 - scene2.html: Scene 2 with a centered brown circle containing the sorry.gif.
 - scene3.html: Scene 3 featuring an empty pastel off-white background and a dotted frame.
+- scene4.html: Scene 4 with a pastel pink background, a question, and Yes/No buttons.
 
 ## Styling
 - styles.css: Core layout, envelope visuals, baby pink heart seal and wipe transitions, cursor swaps, and scene 2/3 styling.

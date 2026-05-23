@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scene 4</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="scene-4">
+    <main id="app" class="scene4-layout">
+      <div class="content-container">
+        <h1 class="question">Will You Forgive Me?</h1>
+        <div class="gif-container">
+          <img id="main-gif" src="Assets/sorryfullcrying.gif" alt="Sorry" />
+        </div>
+        <div class="button-container">
+          <button id="yes-btn" class="btn">Yes</button>
+          <button id="no-btn" class="btn">No</button>
+        </div>
+      </div>
+      <a href="index.html" class="back-btn">Back</a>
+    </main>
+
+    <script src="node_modules/gsap/dist/gsap.min.js"></script>
+    <script>
+      const mainGif = document.getElementById('main-gif');
+      const yesBtn = document.getElementById('yes-btn');
+      const noBtn = document.getElementById('no-btn');
+      const buttonContainer = document.querySelector('.button-container');
+
+      // Fade in buttons
+      gsap.from(buttonContainer, { opacity: 0, y: 20, duration: 1, delay: 0.5 });
+
+      yesBtn.addEventListener('click', () => {
+        if (mainGif.src.includes('sorryfullcrying.gif')) {
+          mainGif.src = 'Assets/dudukiss.gif';
+        } else {
+          mainGif.src = 'Assets/sorryfullcrying.gif';
+        }
+      });
+
+      noBtn.addEventListener('click', () => {
+        if (mainGif.src.includes('dudukiss.gif')) {
+          mainGif.src = 'Assets/sorryfullcrying.gif';
+        }
+      });
+    </script>
+  </body>
+</html>
