@@ -285,6 +285,29 @@
       // Start loop
       updatePhysics();
 
+      // Dynamic font size adjustment
+      function adjustFontSize() {
+        const pageContents = document.querySelectorAll('.page-content');
+        pageContents.forEach(content => {
+          let fontSize = 1.6; // Start with a reasonable max
+          const minFontSize = 0.8;
+          
+          // Temporarily set to max to check overflow
+          content.style.fontSize = `${fontSize}rem`;
+          
+          while (content.scrollHeight > content.clientHeight && fontSize > minFontSize) {
+            fontSize -= 0.1;
+            content.style.fontSize = `${fontSize}rem`;
+          }
+        });
+      }
+
+      // Run adjustment on load and resize
+      window.addEventListener('load', adjustFontSize);
+      window.addEventListener('resize', adjustFontSize);
+      // Also run it immediately in case load already fired
+      adjustFontSize();
+
       pages.forEach((page) => resetParagraphs(page));
 
       pages.forEach((page, index) => {
